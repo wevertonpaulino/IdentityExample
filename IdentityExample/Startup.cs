@@ -13,12 +13,9 @@ namespace IdentityExample
 {
     public class Startup
     {
-        private readonly string _connectionString;
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
 
         public IConfiguration Configuration { get; }
@@ -27,9 +24,7 @@ namespace IdentityExample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
-            {
-                options.UseSqlServer(_connectionString);
-            });
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationContext>()
