@@ -18,6 +18,11 @@ namespace IdentityExample.Data
 
             builder.Entity<ApplicationUser>().ToTable("Users");
             builder.Entity<ApplicationRole>().ToTable("Roles");
+
+            builder.Entity<ApplicationUser>(x =>
+            {
+                x.Property(x => x.Email).HasColumnName("EmailAddress");
+            });
         }
     }
 }
